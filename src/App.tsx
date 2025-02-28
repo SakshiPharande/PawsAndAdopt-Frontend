@@ -1,11 +1,11 @@
 import './App.css'
-import SignUpFormContainer from './auth/container/SignUpFormContainer'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
 
   return (
     <>
-    <SignUpFormContainer/>
+     <AppRoutes/> 
     </>
   )
 }

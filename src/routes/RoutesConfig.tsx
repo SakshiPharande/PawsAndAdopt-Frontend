@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { SIGNUP_PATH } from "./routes-constant";
-import { SignUpFormView } from "@/auth/components/SignUpFormView";
+import SignUpFormContainer from "@/auth/container/SignUpFormContainer";
 
 export interface RouteOptions {
   key: string;
@@ -14,8 +14,8 @@ export const routes: RouteOptions[] = [
   {
     key: "signup",
     path: SIGNUP_PATH,
-    element: <SignUpFormView />,
+    element: <SignUpFormContainer/>,
     isProtected: false,
-    includeLayout: false,
+    includeLayout: true,
   },
 ];
