@@ -33,15 +33,6 @@ export const SignUpFormView: React.FC<SignUpFormViewProps> = ({
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <div className="mb-2 flex items-center">
-                  <img 
-                    src="/paw-print.svg" 
-                    alt="Paw Print" 
-                    className="mr-2 h-8 w-8" 
-                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.style.display = 'none';
-                    }} 
-                  />
                   <h1 className="text-3xl font-bold text-amber-800">Paws&Adopt</h1>
                 </div>
                 <p className="text-balance text-muted-foreground">
