@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
-import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH } from "./routes-constant";
+import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS } from "./routes-constant";
 import SignUpFormContainer from "@/auth/container/SignUpFormContainer";
 import SignInFormContainer from "@/auth/container/SignInFormContainer";
 import Home from "@/feature/landing/components/Home";
+import ShowAllPets from "@/feature/Pets/containers/ShowAllPets";
 
 // Enum for layout types
 export enum LayoutType {
@@ -39,6 +40,13 @@ export const routes: RouteOptions[] = [
     key: "sigin",
     path: SIGNIN_PATH,
     element: <SignInFormContainer/>,
+    isProtected: false,
+    layout: LayoutType.AUTH
+  },
+  {
+    key: "all_pets",
+    path: SHOW_ALL_PETS,
+    element: <ShowAllPets/>,
     isProtected: false,
     layout: LayoutType.AUTH
   },
