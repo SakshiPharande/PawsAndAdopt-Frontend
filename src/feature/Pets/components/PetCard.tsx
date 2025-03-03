@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { Pet } from "../types/petType";
 import ViewPet from "./ViewPet";
-import AdoptPet from "@/feature/AdoptPet/components/AdoptPet";
+import AdoptPetContainer from "@/feature/AdoptPet/container/AdoptPetConatiner";
 
 const PetCard = ({ pet }: { pet: Pet }) => {
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
@@ -39,7 +39,7 @@ const PetCard = ({ pet }: { pet: Pet }) => {
 
       {/* ViewPet Modal */}
       {selectedPetId && <ViewPet petId={selectedPetId} onClose={() => setSelectedPetId(null)} />}
-      {isAdoptModalOpen && <AdoptPet petId={pet.id} onClose={() => setIsAdoptModalOpen(false)} />}
+      {isAdoptModalOpen && <AdoptPetContainer petId={pet.id} onClose={() => setIsAdoptModalOpen(false)} />}
     </>
   );
 };
