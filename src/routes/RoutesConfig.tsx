@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
-import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS } from "./routes-constant";
+import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS, SHOW_ADOPT_PET_REQUEST } from "./routes-constant";
 import SignUpFormContainer from "@/auth/container/SignUpFormContainer";
 import SignInFormContainer from "@/auth/container/SignInFormContainer";
 import Home from "@/feature/landing/components/Home";
 import ShowAllPets from "@/feature/Pets/containers/ShowAllPets";
+import ShowAdoptRequestContainer from "@/feature/AdoptPet/container/ShowAdoptRequestContainer";
 
 // Enum for layout types
 export enum LayoutType {
@@ -48,6 +49,13 @@ export const routes: RouteOptions[] = [
     path: SHOW_ALL_PETS,
     element: <ShowAllPets/>,
     isProtected: false,
-    layout: LayoutType.AUTH
+    layout: LayoutType.HOME
+  },
+  {
+    key: "/show_adoptions",
+    path: SHOW_ADOPT_PET_REQUEST,
+    element: <ShowAdoptRequestContainer/>,
+    isProtected: false,
+    layout: LayoutType.HOME
   },
 ];

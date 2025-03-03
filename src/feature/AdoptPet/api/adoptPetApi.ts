@@ -16,7 +16,7 @@ export const adoptionApi = createApi({
   endpoints: (builder) => ({
     adoptPet: builder.mutation({
       query: (adoptionData) => ({
-        url: "/adopt_pets",
+        url: "/show_adoptions",
         method: "POST",
         body: adoptionData,
       }),

@@ -1,6 +1,7 @@
 import { signInApi } from '@/auth/api/signInApi';
 import { signUpApi } from '@/auth/api/signUpApi';
 import { adoptionApi } from '@/feature/AdoptPet/api/adoptPetApi';
+import { showAdoptRequestApi } from '@/feature/AdoptPet/api/showAdoptRequest';
 import { showAllPetsApi } from '@/feature/Pets/api/showAllPetsApi';
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -10,9 +11,10 @@ export const store = configureStore({
     [signInApi.reducerPath]: signInApi.reducer,
     [showAllPetsApi.reducerPath]: showAllPetsApi.reducer,
     [adoptionApi.reducerPath]: adoptionApi.reducer,
+    [showAdoptRequestApi.reducerPath]: showAdoptRequestApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(signUpApi.middleware, signInApi.middleware, showAllPetsApi.middleware, adoptionApi.middleware),
+    getDefaultMiddleware().concat(signUpApi.middleware, signInApi.middleware, showAllPetsApi.middleware, adoptionApi.middleware, showAdoptRequestApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
