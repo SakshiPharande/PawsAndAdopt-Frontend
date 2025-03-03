@@ -34,7 +34,7 @@ const ShowAdoptRequest = ({ data, onView, onDelete }: ShowAdoptRequestProps) => 
                   <Eye className="w-4 h-4" />
                 </Button>
                 {/* Delete Button (only if status is Pending) */}
-                {request.status === "Pending" && (
+                {request.status === "pending" && (
                   <Button size="icon" variant="destructive" onClick={() => onDelete(request.id)}>
                     <Trash className="w-4 h-4" />
                   </Button>

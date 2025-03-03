@@ -2,13 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAdoptPetMutation } from "../api/adoptPetApi";
-// import { toast } from "react-toastify";
 
 const AdoptPet = ({ petId, onClose }: { petId: number; onClose: () => void }) => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    console.log("User ID : ",user.id); // Access user_id
-//   const userId = localStorage.getItem("user_id") || "0"; // Get user_id from localStorage
-    const userId = user.id;
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+    // console.log("User ID : ",user.id); // Access user_id
+    //const userId = localStorage.getItem("user_id") || "0"; 
+  const userId = user.id;
   const [formData, setFormData] = useState({
     email: "",
     phone_no: "",
