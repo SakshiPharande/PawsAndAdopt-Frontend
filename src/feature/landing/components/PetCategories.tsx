@@ -23,10 +23,10 @@ const CategoryItem: React.FC<CategoryProps> = ({ name, icon: Icon, href }) => {
 
 const PetCategories: React.FC = () => {
   const categories: CategoryProps[] = [
-    { name: "Bird Shop", icon: Bird, href: "#bird" },
-    { name: "Dog Shop", icon: Dog, href: "#dog" },
-    { name: "Fish Shop", icon: Fish, href: "#fish" },
-    { name: "Cat Shop", icon: Cat, href: "#cat" }
+    { name: "Bird", icon: Bird, href: "#bird" },
+    { name: "Dog", icon: Dog, href: "#dog" },
+    { name: "Fish", icon: Fish, href: "#fish" },
+    { name: "Cat", icon: Cat, href: "#cat" }
   ];
 
   return (

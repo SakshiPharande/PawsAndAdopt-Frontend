@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Link } from 'react-router-dom';
 
 interface SignUpFormViewProps extends React.ComponentProps<"form"> {
   register: UseFormRegister<SignUpRequest>;
@@ -115,9 +116,9 @@ export const SignUpFormView: React.FC<SignUpFormViewProps> = ({
               </Button>
               <div className="text-center text-sm">
                 Have an account already?{" "}
-                <a href="#" className="text-amber-600 underline underline-offset-4 hover:text-amber-800">
+                <Link to="/signin" className="text-amber-600 underline underline-offset-4 hover:text-amber-800">
                   Sign In
-                </a>
+                </Link>
               </div>
             </div>
           </form>

@@ -28,20 +28,16 @@ const Navbar = () => {
               <Link to="/adopt" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium flex items-center">
                 Adopt Pet
               </Link>
-              <div className="absolute left-0 mt-1 w-48 bg-amber-800 rounded-md shadow-lg hidden group-hover:block z-10">
+              {/* <div className="absolute left-0 mt-1 w-48 bg-amber-800 rounded-md shadow-lg hidden group-hover:block z-10">
                 <Link to="/adopt/dog" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Dogs</Link>
                 <Link to="/adopt/cat" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Cats</Link>
                 <Link to="/adopt/other" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Other Pets</Link>
-              </div>
+              </div> */}
             </div>
             <div className="relative group">
               <Link to="/donate" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium flex items-center">
                 Donate Pet
               </Link>
-              <div className="absolute left-0 mt-1 w-48 bg-amber-800 rounded-md shadow-lg hidden group-hover:block z-10">
-                <Link to="/donate/request" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Request Form</Link>
-                <Link to="/donate/guidelines" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Guidelines</Link>
-              </div>
             </div>
           </div>
           
