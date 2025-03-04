@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Heart, PawPrint } from "lucide-react";
+import { Menu, X,PawPrint } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +38,10 @@ const Navbar = () => {
               <Link to="/donate" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium flex items-center">
                 Donate Pet
               </Link>
+              <div className="absolute left-0 mt-1 w-48 bg-amber-800 rounded-md shadow-lg hidden group-hover:block z-10">
+                <Link to="#" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">Donate Pet</Link>
+                <Link to="#" className="block px-4 py-2 text-sm text-amber-100 hover:bg-amber-700">View Donate Requests</Link>
+              </div>
             </div>
           </div>
           
@@ -74,9 +78,6 @@ const Navbar = () => {
             <Link to="/donate" className="px-3 py-2 text-amber-100 hover:bg-amber-700 rounded-md">Donate Pet</Link>
             
             <div className="flex items-center justify-between pt-4 border-t border-amber-700 mt-2">
-              <Link to="/favorites" className="flex items-center px-3 py-2 text-amber-100">
-                <Heart className="h-4 w-4 mr-2" /> Favorites
-              </Link>
               <Link to="/signin" className="px-4 py-1.5 bg-amber-100 text-amber-800 rounded-md text-sm font-medium">
                 Login
               </Link>
