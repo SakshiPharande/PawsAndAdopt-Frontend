@@ -7,9 +7,18 @@ import { SignUpRequest } from "@/auth/types/signup-type";
 import { SignUpFormView } from "../components/SignUpFormView";
 import { setUserAfterSignup } from "../authSlice";
 import { toast } from "sonner"; //  Import Sonner for toast notifications
+import { SignUpValidationSchema } from "../validations/signup-validation";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const SignUpFormContainer: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<SignUpRequest>();
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+  } = useForm<SignUpRequest>({
+    resolver: yupResolver(SignUpValidationSchema),
+    mode: 'onBlur'
+  });
   const [registerUser, { isLoading, error }] = useRegisterUserMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; //  Used for redirection
 import { setCredentials } from "@/auth/authSlice";
@@ -7,10 +8,18 @@ import { SignInRequest } from "@/auth/types/signin-type";
 import { SignInFormView } from "../components/SignInFormView";
 import { useSignInUserMutation } from "../api/signInApi";
 import { toast } from "sonner"; //  Using Sonner for toasts
+import { SignInValidationSchema } from "../validations/signin-validation";
+
 
 const SignInFormContainer: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<SignInRequest>();
-  const dispatch = useDispatch();
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+  } = useForm<SignInRequest>({
+    resolver: yupResolver(SignInValidationSchema),
+    mode: 'onBlur'
+  });  const dispatch = useDispatch();
   const navigate = useNavigate(); //  Used for redirection after login
   const [loginUser, { isLoading, error }] = useSignInUserMutation();
 
