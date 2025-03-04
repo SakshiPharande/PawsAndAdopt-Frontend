@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
@@ -10,6 +11,16 @@ const PetCard = ({ pet }: { pet: Pet }) => {
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleAdoptClick = () => {
+    if (pet.status === "Unavailable") {
+      toast.error('Pet Adoption Unavailable', {
+        description: `Sorry, ${pet.breed_name} is currently not available for adoption.`,
+      });
+    } else {
+      setIsAdoptModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -34,6 +45,7 @@ const PetCard = ({ pet }: { pet: Pet }) => {
               className={`
                 w-full h-48 object-cover transition-transform duration-300
                 ${isHovered ? 'scale-110' : 'scale-100'}
+                ${pet.status === "Unavailable" ? 'opacity-50' : ''}
               `}
             />
             {isHovered && (
@@ -55,8 +67,14 @@ const PetCard = ({ pet }: { pet: Pet }) => {
 
           <div className="flex items-center justify-between mt-4">
             <Button 
-              className="w-full bg-[#A864AF] hover:bg-[#8A5691] text-white transition-colors"
-              onClick={() => setIsAdoptModalOpen(true)}
+              className={`
+                w-full 
+                ${pet.status === "Available" 
+                  ? "bg-[#A864AF] hover:bg-[#8A5691]" 
+                  : "bg-[#A864AF] hover:bg-[#8A5691]"}
+                text-white transition-colors
+              `}
+              onClick={handleAdoptClick}
             >
               Adopt Pet
             </Button>
