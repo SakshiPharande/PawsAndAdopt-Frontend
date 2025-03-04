@@ -16,8 +16,9 @@ const SignInFormContainer: React.FC = () => {
     try {
       const userData = await loginUser(data).unwrap();
       dispatch(setCredentials(userData));  // Save user & token in Redux store
-      localStorage.setItem("user", JSON.stringify(userData.user));
       localStorage.setItem("token", userData.token);
+      localStorage.setItem("user", JSON.stringify(userData.user));
+      localStorage.setItem("profile_image_url", userData.user.profile_image_url);
       // Redirect user or handle post-login logic
     } catch (err) {
       console.error("Login failed:", err);

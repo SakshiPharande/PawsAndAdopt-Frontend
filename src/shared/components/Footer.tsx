@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-amber-800 text-amber-100 py-6 mt-10">
+    <footer className="bg-amber-700 text-amber-100 py-6 mt-10">
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
         {/* Logo & Navigation */}
         <div className="flex flex-col md:flex-row items-center justify-between w-full border-b border-amber-700 pb-4">
