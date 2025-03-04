@@ -27,6 +27,7 @@ export interface Pet {
   
   export interface DonationResponse {
     success: boolean;
-    data: DonationRequest[];
+    message?: string;
+    data?: DonationRequest[];
   }
   
