@@ -9,30 +9,57 @@ import AdoptPetContainer from "@/feature/AdoptPet/container/AdoptPetConatiner";
 const PetCard = ({ pet }: { pet: Pet }) => {
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <CardHeader className="bg-amber-100 p-4 rounded-t-lg">
-          <CardTitle className="text-amber-800 text-xl">{pet.breed_name}</CardTitle>
+      <Card 
+        className={`
+          shadow-lg transition-all duration-300 
+          border-2 border-[#D1B0D2] rounded-xl overflow-hidden
+          hover:shadow-2xl hover:scale-105 hover:border-[#8A5691]
+          transform hover:-translate-y-2
+        `}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <CardHeader className="bg-[#E4D3E7] p-4 rounded-t-xl">
+          <CardTitle className="text-[#8A5691] text-xl font-bold">{pet.breed_name}</CardTitle>
         </CardHeader>
-        <CardContent className="p-4">
-          <img
-            src={pet.pet_images.length > 0 ? `http://localhost:3000${pet.pet_images[0]}` : "/placeholder-image.jpg"}
-            alt={pet.breed_name}
-            className="w-full h-40 object-cover rounded-lg mb-4"
-          />
+        <CardContent className="p-4 relative">
+          <div className="relative overflow-hidden rounded-lg mb-4">
+            <img
+              src={pet.pet_images.length > 0 ? `http://localhost:3000${pet.pet_images[0]}` : "/placeholder-image.jpg"}
+              alt={pet.breed_name}
+              className={`
+                w-full h-48 object-cover transition-transform duration-300
+                ${isHovered ? 'scale-110' : 'scale-100'}
+              `}
+            />
+            {isHovered && (
+              <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity">
+                <Eye
+                  className="w-10 h-10 text-white cursor-pointer hover:scale-110 transition-transform"
+                  onClick={() => setSelectedPetId(pet.id)}
+                />
+              </div>
+            )}
+          </div>
 
-          <p className={`mt-2 font-semibold ${pet.status === "Available" ? "text-green-600" : "text-red-600"}`}>
+          <p className={`
+            mt-2 font-semibold text-center
+            ${pet.status === "Available" ? "text-green-600" : "text-red-600"}
+          `}>
             Status: {pet.status}
           </p>
 
           <div className="flex items-center justify-between mt-4">
-            <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white" onClick={() => setIsAdoptModalOpen(true)}>Adopt Pet</Button>
-            <Eye
-              className="w-6 h-6 text-amber-800 ml-4 cursor-pointer"
-              onClick={() => setSelectedPetId(pet.id)}
-            />
+            <Button 
+              className="w-full bg-[#A864AF] hover:bg-[#8A5691] text-white transition-colors"
+              onClick={() => setIsAdoptModalOpen(true)}
+            >
+              Adopt Pet
+            </Button>
           </div>
         </CardContent>
       </Card>
