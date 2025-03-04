@@ -11,28 +11,39 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useGetBreedsByCategoryQuery, useGetCategoriesQuery } from "../api/categoryApi";
-import { Pet } from "../types/donatePetType";
+import { GetBreedsResponse, GetCategoriesResponse, Pet } from "../types/donatePetType";
 import { useCreatePetMutation } from "../api/donateApi";
+import { useNavigate } from "react-router-dom";
 
 interface PetFormProps {
   onNext: (petId: number) => void;
 }
 
-const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
+const PetForm: React.FC<PetFormProps> = () => {
   const { register, handleSubmit, setValue } = useForm<Pet>();
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [ageUnit, setAgeUnit] = useState<string>("months"); // Default to months
   const [createPet] = useCreatePetMutation();
   const [images, setImages] = useState<File[]>([]);
+  const navigate = useNavigate(); 
 
   // Fetch categories when the form loads
-  const { data: categoryResponse, isLoading: isCategoryLoading, error: categoryError } = useGetCategoriesQuery();
+  // const { data: categoryResponse, isLoading: isCategoryLoading, error: categoryError } = useGetCategoriesQuery();
+  const { data: categoryResponse, isLoading: isCategoryLoading, error: categoryError } = useGetCategoriesQuery<GetCategoriesResponse>();
+  // console.log(categoryResponse);
 
   // Fetch breeds only when a category is selected
-  const { data: breedResponse, isLoading: isBreedLoading, error: breedError } = useGetBreedsByCategoryQuery(
+  // const { data: breedResponse, isLoading: isBreedLoading, error: breedError } = useGetBreedsByCategoryQuery(
+  //   selectedCategory ?? 0,
+  //   { skip: !selectedCategory }
+  // );
+
+  const { data: breedResponse, isLoading: isBreedLoading, error: breedError } =
+  useGetBreedsByCategoryQuery<GetBreedsResponse>(
     selectedCategory ?? 0,
     { skip: !selectedCategory }
   );
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -44,21 +55,29 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
     try {
       const formData = new FormData();
       images.forEach((image) => formData.append("images", image));
+      
 
       // Append age unit
       const petData = {
         ...data,
         age_unit: ageUnit, // Include age unit
+        gender: Number(data.gender),
+        status: Number(data.status),
+
       };
 
       formData.append("pet", JSON.stringify(petData));
 
       const response = await createPet({ pet: petData }).unwrap();
-      onNext(response.data.pet_id);
+      console.log("response from create pet: ",response)
+      if (response?.success) {
+        navigate(`/donation_form/${response?.pet_id}`); // Navigate to DonationForm
+      }
     } catch (error) {
       console.error("Failed to create pet", error);
     }
   };
+  console.log("Breed Response : ",breedResponse);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -67,7 +86,8 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
           const categoryId = Number(val);
           setValue("category_id", categoryId);
           setSelectedCategory(categoryId);
-        }}>
+        }}
+        >
         <SelectTrigger>
           <SelectValue placeholder="Select Category" />
         </SelectTrigger>
@@ -77,8 +97,9 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
           ) : categoryError ? (
             <SelectItem disabled value="error">Failed to Load Categories</SelectItem>
           ) : (
-            categoryResponse?.data?.map((cat) => (
-              <SelectItem key={cat.id} value={String(cat.id)}>{cat.category_name}</SelectItem>
+            
+            categoryResponse?.categories?.map((cat) => (
+              <SelectItem key={Number(cat.id)} value={String(cat.id)}>{cat.category_name}</SelectItem>
             ))
           )}
         </SelectContent>
@@ -98,8 +119,8 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
           ) : breedError ? (
             <SelectItem disabled value="error">Failed to Load Breeds</SelectItem>
           ) : (
-            breedResponse?.data?.map((breed) => (
-              <SelectItem key={breed.id} value={String(breed.id)}>{breed.breed_name}</SelectItem>
+            breedResponse?.breeds?.map((breed) => (
+              <SelectItem key={Number(breed.id)} value={String(breed.id)}>{breed.breed_name}</SelectItem>
             ))
           )}
         </SelectContent>
@@ -119,8 +140,8 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
       </div>
 
       {/* Gender Selection */}
-      <Select onValueChange={(val) => setValue("gender", val as "1" | "2")}>
-        <SelectTrigger><SelectValue placeholder="Select Gender" /></SelectTrigger>
+      <Select onValueChange={(val) => setValue("gender", Number(val))}>
+      <SelectTrigger><SelectValue placeholder="Select Gender" /></SelectTrigger>
         <SelectContent>
           <SelectItem value="1">Male</SelectItem>
           <SelectItem value="2">Female</SelectItem>
@@ -131,11 +152,11 @@ const PetForm: React.FC<PetFormProps> = ({ onNext }) => {
       <Input type="text" placeholder="Temperament" {...register("temperament")} />
 
       {/* Status Selection */}
-      <Select onValueChange={(val) => setValue("status", val as "1" | "2")}>
-        <SelectTrigger><SelectValue placeholder="Select Status" /></SelectTrigger>
+      <Select onValueChange={(val) => setValue("status", Number(val))}>
+      <SelectTrigger><SelectValue placeholder="Select Status" /></SelectTrigger>
         <SelectContent>
-          <SelectItem value="1">Available</SelectItem>
-          <SelectItem value="2">Not Available</SelectItem>
+          <SelectItem value="0">Available</SelectItem>
+          <SelectItem value="1">Not Available</SelectItem>
         </SelectContent>
       </Select>
 

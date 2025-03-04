@@ -28,9 +28,9 @@ const Navbar: React.FC = () => {
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">Home</Link>
-            <Link to="/about" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">About</Link>
-            <Link to="/adopt" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">Adopt Pet</Link>
-            <Link to="/donate" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">Donate Pet</Link>
+            {/* <Link to="/about" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">About</Link> */}
+            <Link to="/show_adoptions" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">Adopt Pet</Link>
+            <Link to="/show_donations" className="px-3 py-2 text-amber-100 hover:text-white text-sm font-medium">Donate Pet</Link>
           </div>
 
           {/* Right Side Actions with shadcn Menubar */}

@@ -12,10 +12,9 @@ const Footer = () => {
           </Link>
           <nav className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/" className="hover:text-amber-300">Home</Link>
-            <Link to="/about" className="hover:text-amber-300">About</Link>
+            {/* <Link to="/about" className="hover:text-amber-300">About</Link> */}
             <Link to="/adopt" className="hover:text-amber-300">Adopt Pet</Link>
             <Link to="/donate" className="hover:text-amber-300">Donate Pet</Link>
-            <Link to="/contact" className="hover:text-amber-300">Contact</Link>
           </nav>
         </div>
 

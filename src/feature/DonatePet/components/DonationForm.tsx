@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom"; // Import useParams
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateDonationMutation } from "../api/donateApi";
 import { Donation } from "../types/donatePetType";
 
-interface DonationFormProps {
-  petId: number;
-}
-
-const DonationForm: React.FC<DonationFormProps> = ({ petId }) => {
+const DonationForm: React.FC = () => {
+  const { petId } = useParams<{ petId: string }>(); // Extract petId from URL
   const { register, handleSubmit } = useForm<Donation>();
   const [createDonation] = useCreateDonationMutation();
 
@@ -18,11 +16,11 @@ const DonationForm: React.FC<DonationFormProps> = ({ petId }) => {
   const onSubmit = async (data: Donation) => {
     try {
       const donationData = {
-        pet_id: petId,
+        pet_id: Number(petId), // Convert petId to number
         donate_pet: {
           ...data,
-          user_id: userId ? parseInt(userId) : null, // Convert to number if exists
-          actual_donate_date: data.expected_donate_date, // Auto-set
+          user_id: userId ? parseInt(userId) :  null,
+          actual_donate_date: data.expected_donate_date,
         },
       };
 
