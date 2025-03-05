@@ -25,7 +25,8 @@ export const SignInFormView: React.FC<SignInFormViewProps> = ({
   ...props
 }) => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#E4D3E7] to-[#D1B0D2] py-12 px-4 sm:px-6 lg:px-8">
+  <div className='h-screen w-screen flex justify-center bg-gradient-to-br from-[#E4D3E7] to-[#D1B0D2]'>
+    <div className="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className={cn("w-full max-w-5xl", className)}>
         <Card className="overflow-hidden shadow-xl border-[#A864AF]">
           <CardContent className="grid p-0 md:grid-cols-2">
@@ -100,6 +101,7 @@ export const SignInFormView: React.FC<SignInFormViewProps> = ({
           and <a href="#">Privacy Policy</a>.
         </div>
       </div>
+    </div>
     </div>
   );
 };
