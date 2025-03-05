@@ -18,6 +18,7 @@ export const store = configureStore({
     [donationApi.reducerPath]: donationApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [showDonateRequestApi.reducerPath]: showDonateRequestApi.reducer,
+    
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(signUpApi.middleware, signInApi.middleware, showAllPetsApi.middleware, adoptionApi.middleware, showAdoptRequestApi.middleware, donationApi.middleware, categoryApi.middleware, showDonateRequestApi.middleware),

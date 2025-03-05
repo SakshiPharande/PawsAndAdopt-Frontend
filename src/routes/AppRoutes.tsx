@@ -2,6 +2,7 @@ import { createBrowserRouter, RouteObject, RouterProvider } from "react-router";
 import { LayoutType, RouteOptions, routes } from "./RoutesConfig";
 import AuthLayout from "@/Layout/AuthLayout";
 import HomeLayout from "@/Layout/HomeLayout";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 
 const getBrowserRouter = (routes: RouteOptions[]) => {
@@ -22,10 +23,10 @@ const getBrowserRouter = (routes: RouteOptions[]) => {
       element: element,
     };
 
-    if (route.isProtected) {
-      // eslint-disable-next-line no-self-assign
-      routerObject.element = routerObject.element; // but wrapped
-    }
+        // Wrap protected routes
+        if (route.isProtected) {
+          routerObject.element = <ProtectedRoute>{routerObject.element}</ProtectedRoute>;
+        }
 
     return routerObject;
   });
