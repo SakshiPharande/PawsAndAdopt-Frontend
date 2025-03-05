@@ -16,7 +16,6 @@ export interface Pet {
   
   export interface DonationRequest {
     id: number;
-    email: string;
     phone_no: string;
     address: string;
     status: string;
@@ -27,7 +26,6 @@ export interface Pet {
   
   export interface DonationResponse {
     success: boolean;
-    message?: string;
     data?: DonationRequest[];
   }
   

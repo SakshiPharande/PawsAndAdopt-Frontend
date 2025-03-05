@@ -12,7 +12,23 @@ const PetCard = ({ pet }: { pet: Pet }) => {
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  const { isLoggedIn } = useAuth;
+  
   const handleAdoptClick = () => {
+     // First, check if user is logged in
+     if (!isLoggedIn) {
+      toast.error('Login Required', {
+        description: 'Please log in to adopt a pet.',
+        action: {
+          label: 'Login',
+          onClick: () => {
+            window.location.href = '/signin'; 
+          }
+        }
+      });
+      return;
+    }
+
     if (pet.status === "Unavailable") {
       toast.error('Pet Adoption Unavailable', {
         description: `Sorry, ${pet.breed_name} is currently not available for adoption.`,
@@ -90,3 +106,7 @@ const PetCard = ({ pet }: { pet: Pet }) => {
 };
 
 export default PetCard;
+
+function useAuth(): { isLoggedIn: any; } {
+  throw new Error("Function not implemented.");
+}

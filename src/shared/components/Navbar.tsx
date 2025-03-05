@@ -191,9 +191,10 @@ const Navbar: React.FC = () => {
 
           <div className="flex flex-col px-4 pt-2 pb-4 space-y-2">
             {[
-              { text: "Home", link: "/" },
-              { text: "Pets", link: "/pets" },
-              { text: "Donate Pet", link: "/donation" }
+              { text: "Home", link: HOME_PATH  },
+              { text: "Pets", link: SHOW_ALL_PETS },
+              { text: "Donate Pet", link: SHOW_DONATE_PET_REQUEST },
+              { text: "Adopt Pet", link: SHOW_ADOPT_PET_REQUEST }
             ].map((item, index) => (
               <Link 
                 key={index} 

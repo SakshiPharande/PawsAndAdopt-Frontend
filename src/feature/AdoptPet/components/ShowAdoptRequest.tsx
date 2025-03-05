@@ -1,15 +1,15 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Eye, Trash, PawPrint } from "lucide-react";
+import { Eye, PawPrint } from "lucide-react";
 import { AdoptionRequest } from "../types/showAdoptRequestType";
 
 interface ShowAdoptRequestProps {
   data: AdoptionRequest[];
   onView: (request: AdoptionRequest) => void;
-  onDelete: (id: number) => void;
+  // onDelete: (id: number) => void;
 }
 
-const ShowAdoptRequest = ({ data, onView, onDelete }: ShowAdoptRequestProps) => {
+const ShowAdoptRequest = ({ data, onView}: ShowAdoptRequestProps) => {
   if (data.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] p-6 bg-[#E4D3E7]">
@@ -24,7 +24,7 @@ const ShowAdoptRequest = ({ data, onView, onDelete }: ShowAdoptRequestProps) => 
           </h2>
           <p className="text-[#A864AF] max-w-md mx-auto">
             It looks like there are no adoption requests at the moment. 
-            When people start applying to adopt pets, their requests will appear here.
+            When you start applying to adopt pets, your requests will appear here.
           </p>
         </div>
       </div>
@@ -84,21 +84,6 @@ const ShowAdoptRequest = ({ data, onView, onDelete }: ShowAdoptRequestProps) => 
                 >
                   <Eye className="w-4 h-4" />
                 </Button>
-                {/* Delete Button (only if status is Pending) */}
-                {request.status === "pending" && (
-                  <Button 
-                    size="icon" 
-                    variant="destructive" 
-                    className="
-                      bg-red-500 
-                      hover:bg-red-600 
-                      text-white
-                    "
-                    onClick={() => onDelete(request.id)}
-                  >
-                    <Trash className="w-4 h-4" />
-                  </Button>
-                )}
               </TableCell>
             </TableRow>
           ))}

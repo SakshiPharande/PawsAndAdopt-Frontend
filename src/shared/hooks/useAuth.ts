@@ -30,6 +30,7 @@ const useAuth = () => {
     }
   }, []);
 
+  
   const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -38,7 +39,13 @@ const useAuth = () => {
     setProfileImage(null);
   };
 
-  return { user, profileImage, logout };
+  // New method to check if user is logged in
+  const isLoggedIn = () => {
+    // Check both user state and token in localStorage
+    return !!user && !!localStorage.getItem("token");
+  };
+
+  return { user, profileImage, logout, isLoggedIn };
 };
 
 export default useAuth;
