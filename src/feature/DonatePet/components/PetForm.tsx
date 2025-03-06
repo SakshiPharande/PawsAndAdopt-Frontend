@@ -28,15 +28,7 @@ const PetForm: React.FC<PetFormProps> = () => {
   const navigate = useNavigate(); 
 
   // Fetch categories when the form loads
-  // const { data: categoryResponse, isLoading: isCategoryLoading, error: categoryError } = useGetCategoriesQuery();
   const { data: categoryResponse, isLoading: isCategoryLoading, error: categoryError } = useGetCategoriesQuery<GetCategoriesResponse>();
-  // console.log(categoryResponse);
-
-  // Fetch breeds only when a category is selected
-  // const { data: breedResponse, isLoading: isBreedLoading, error: breedError } = useGetBreedsByCategoryQuery(
-  //   selectedCategory ?? 0,
-  //   { skip: !selectedCategory }
-  // );
 
   const { data: breedResponse, isLoading: isBreedLoading, error: breedError } =
   useGetBreedsByCategoryQuery<GetBreedsResponse>(
@@ -51,33 +43,45 @@ const PetForm: React.FC<PetFormProps> = () => {
     }
   };
 
-  const onSubmit = async (data: Pet) => {
-    try {
-      const formData = new FormData();
-      images.forEach((image) => formData.append("images", image));
-      
+// Updated onSubmit function for PetForm component
+const onSubmit = async (data: Pet) => {
+  try {
+    const formData = new FormData();
+    
+    // Add all image files to the FormData
+    images.forEach((image) => {
+      formData.append("pet[pet_images][]", image); // Match the param name in your controller
+    });
 
-      // Append age unit
-      const petData = {
-        ...data,
-        age_unit: ageUnit, // Include age unit
-        gender: Number(data.gender),
-        status: Number(data.status),
+    // Add each pet attribute directly to the formData instead of as a JSON string
+    // This will make Rails properly parse them as params
+    formData.append("pet[age]", data.age.toString());
+    formData.append("pet[age_unit]", ageUnit);
+    formData.append("pet[gender]", data.gender.toString());
+    formData.append("pet[temperament]", data.temperament || '');
+    formData.append("pet[vaccination_status]", data.vaccination_status ? 'true' : 'false');
+    formData.append("pet[medical_history]", data.medical_history || '');
+    formData.append("pet[recommended_food]", data.recommended_food || '');
+    formData.append("pet[common_health_issues]", data.common_health_issues || '');
+    formData.append("pet[status]", data.status.toString());
+    formData.append("pet[category_id]", data.category_id.toString());
+    formData.append("pet[breed_id]", data.breed_id.toString());
 
-      };
+     console.log("images", images)
 
-      formData.append("pet", JSON.stringify(petData));
-
-      const response = await createPet({ pet: petData }).unwrap();
-      console.log("response from create pet: ",response)
-      if (response?.success) {
-        navigate(`/donation_form/${response?.pet_id}`); // Navigate to DonationForm
-      }
-    } catch (error) {
-      console.error("Failed to create pet", error);
+    // Send the FormData with the createPet mutation
+    const response = await createPet(formData).unwrap();
+    console.log("Response from create pet:", response);
+    
+    if (response?.success) {
+      navigate(`/donation_form/${response?.pet_id}`); // Navigate to DonationForm
     }
-  };
-  console.log("Breed Response : ",breedResponse);
+  } catch (error) {
+    console.error("Failed to create pet", error);
+  }
+};
+
+console.log("Breed Response : ",breedResponse);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

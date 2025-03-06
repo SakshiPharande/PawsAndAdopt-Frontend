@@ -1,5 +1,6 @@
+// donationApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ApiResponse, CreateDonationResponse, CreatePetResponse, Donation, Pet } from "../types/donatePetType";
+import { ApiResponse, CreateDonationResponse, CreatePetResponse, Donation} from "../types/donatePetType";
 
 export const donationApi = createApi({
   reducerPath: "donationApi",
@@ -10,16 +11,17 @@ export const donationApi = createApi({
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-      headers.set("Content-Type", "application/json");
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    createPet: builder.mutation<ApiResponse<CreatePetResponse>, { pet: Pet }>({
-      query: (petData) => ({
+    createPet: builder.mutation<ApiResponse<CreatePetResponse>, FormData>({
+      query: (formData) => ({
         url: "/create_pet",
         method: "POST",
-        body: petData,
+        body: formData,
+        // Don't set Content-Type header, let the browser set it with the boundary parameter
+        formData: true,
       }),
     }),
     createDonation: builder.mutation<ApiResponse<CreateDonationResponse>, { pet_id: number; donate_pet: Donation }>({

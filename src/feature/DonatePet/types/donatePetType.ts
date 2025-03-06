@@ -20,7 +20,7 @@ export interface Pet {
   recommended_food: string;
   common_health_issues: string;
   status: number; // 0 - Available, 1 - Not Available
-  pet_image_url?: string;
+  pet_images?: [];
   category_id: number;
   breed_id: number;
 }
