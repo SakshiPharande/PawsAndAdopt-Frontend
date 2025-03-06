@@ -83,115 +83,221 @@ const onSubmit = async (data: Pet) => {
 
 console.log("Breed Response : ",breedResponse);
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {/* Category Selection */}
-      <Select onValueChange={(val) => { 
-          const categoryId = Number(val);
-          setValue("category_id", categoryId);
-          setSelectedCategory(categoryId);
-        }}
-        >
-        <SelectTrigger>
-          <SelectValue placeholder="Select Category" />
-        </SelectTrigger>
-        <SelectContent>
-          {isCategoryLoading ? (
-            <SelectItem disabled value="loading">Loading Categories...</SelectItem>
-          ) : categoryError ? (
-            <SelectItem disabled value="error">Failed to Load Categories</SelectItem>
-          ) : (
-            
-            categoryResponse?.categories?.map((cat) => (
-              <SelectItem key={Number(cat.id)} value={String(cat.id)}>{cat.category_name}</SelectItem>
-            ))
-          )}
-        </SelectContent>
-      </Select>
+return (
+  <div className="p-6 bg-[#FFFEFE] rounded-lg shadow-md max-w-5xl mx-auto">
+    <h2 className="text-2xl font-bold mb-6 text-[#8A5691]">Donate Your Pet</h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      {/* First row - Category and Breed */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Category Selection */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Pet Category</label>
+          <Select onValueChange={(val) => { 
+              const categoryId = Number(val);
+              setValue("category_id", categoryId);
+              setSelectedCategory(categoryId);
+            }}
+          >
+            <SelectTrigger className="border-[#D1B0D2] focus:ring-[#A864AF]">
+              <SelectValue placeholder="Select Category" />
+            </SelectTrigger>
+            <SelectContent className="bg-[#FFFEFE]">
+              {isCategoryLoading ? (
+                <SelectItem disabled value="loading">Loading Categories...</SelectItem>
+              ) : categoryError ? (
+                <SelectItem disabled value="error">Failed to Load Categories</SelectItem>
+              ) : (
+                categoryResponse?.categories?.map((cat) => (
+                  <SelectItem key={Number(cat.id)} value={String(cat.id)}>{cat.category_name}</SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
 
-      {/* Breed Selection (Disabled until a category is selected) */}
-      <Select
-        onValueChange={(val) => setValue("breed_id", Number(val))}
-        disabled={!selectedCategory}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder={selectedCategory ? "Select Breed" : "Select Category First"} />
-        </SelectTrigger>
-        <SelectContent>
-          {isBreedLoading ? (
-            <SelectItem disabled value="loading">Loading Breeds...</SelectItem>
-          ) : breedError ? (
-            <SelectItem disabled value="error">Failed to Load Breeds</SelectItem>
-          ) : (
-            breedResponse?.breeds?.map((breed) => (
-              <SelectItem key={Number(breed.id)} value={String(breed.id)}>{breed.breed_name}</SelectItem>
-            ))
-          )}
-        </SelectContent>
-      </Select>
-
-      {/* Age Input + Age Unit Selection */}
-      <div className="flex gap-2">
-        <Input type="number" placeholder="Age" {...register("age", { required: true })} />
-        <Select onValueChange={(val) => setAgeUnit(val)}>
-          <SelectTrigger><SelectValue placeholder="Unit" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="days">Days</SelectItem>
-            <SelectItem value="months">Months</SelectItem>
-            <SelectItem value="years">Years</SelectItem>
-          </SelectContent>
-        </Select>
+        {/* Breed Selection */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Pet Breed</label>
+          <Select
+            onValueChange={(val) => setValue("breed_id", Number(val))}
+            disabled={!selectedCategory}
+          >
+            <SelectTrigger className="border-[#D1B0D2] focus:ring-[#A864AF]">
+              <SelectValue placeholder={selectedCategory ? "Select Breed" : "Select Category First"} />
+            </SelectTrigger>
+            <SelectContent className="bg-[#FFFEFE]">
+              {isBreedLoading ? (
+                <SelectItem disabled value="loading">Loading Breeds...</SelectItem>
+              ) : breedError ? (
+                <SelectItem disabled value="error">Failed to Load Breeds</SelectItem>
+              ) : (
+                breedResponse?.breeds?.map((breed) => (
+                  <SelectItem key={Number(breed.id)} value={String(breed.id)}>{breed.breed_name}</SelectItem>
+                ))
+              )}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
-      {/* Gender Selection */}
-      <Select onValueChange={(val) => setValue("gender", Number(val))}>
-      <SelectTrigger><SelectValue placeholder="Select Gender" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="1">Male</SelectItem>
-          <SelectItem value="2">Female</SelectItem>
-        </SelectContent>
-      </Select>
+      {/* Second row - Age and Gender */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Age Input + Age Unit Selection */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Pet Age</label>
+          <div className="flex gap-2">
+            <Input 
+              type="number" 
+              placeholder="Age" 
+              {...register("age", { required: true })} 
+              className="border-[#D1B0D2] focus:ring-[#A864AF]"
+            />
+            <Select onValueChange={(val) => setAgeUnit(val)}>
+              <SelectTrigger className="border-[#D1B0D2] focus:ring-[#A864AF]">
+                <SelectValue placeholder="Unit" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#FFFEFE]">
+                <SelectItem value="days">Days</SelectItem>
+                <SelectItem value="months">Months</SelectItem>
+                <SelectItem value="years">Years</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
-      {/* Temperament */}
-      <Input type="text" placeholder="Temperament" {...register("temperament")} />
+        {/* Gender Selection */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Pet Gender</label>
+          <Select onValueChange={(val) => setValue("gender", Number(val))}>
+            <SelectTrigger className="border-[#D1B0D2] focus:ring-[#A864AF]">
+              <SelectValue placeholder="Select Gender" />
+            </SelectTrigger>
+            <SelectContent className="bg-[#FFFEFE]">
+              <SelectItem value="1">Male</SelectItem>
+              <SelectItem value="2">Female</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
-      {/* Status Selection */}
-      <Select onValueChange={(val) => setValue("status", Number(val))}>
-      <SelectTrigger><SelectValue placeholder="Select Status" /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value="0">Available</SelectItem>
-          <SelectItem value="1">Not Available</SelectItem>
-        </SelectContent>
-      </Select>
+      {/* Third row - Temperament and Status */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Temperament */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Temperament</label>
+          <Input 
+            type="text" 
+            placeholder="Temperament" 
+            {...register("temperament")} 
+            className="border-[#D1B0D2] focus:ring-[#A864AF]"
+          />
+        </div>
+
+        {/* Status Selection */}
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Availability Status</label>
+          <Select onValueChange={(val) => setValue("status", Number(val))}>
+            <SelectTrigger className="border-[#D1B0D2] focus:ring-[#A864AF]">
+              <SelectValue placeholder="Select Status" />
+            </SelectTrigger>
+            <SelectContent className="bg-[#FFFEFE]">
+              <SelectItem value="0">Available</SelectItem>
+              <SelectItem value="1">Not Available</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
 
       {/* Vaccination Status */}
-      <label>
-        <input type="checkbox" {...register("vaccination_status")} /> Vaccinated
-      </label>
-
-      {/* Medical History (Textarea) */}
-      <Textarea placeholder="Medical History" {...register("medical_history")} />
-
-      {/* Recommended Food (Textarea) */}
-      <Textarea placeholder="Recommended Food" {...register("recommended_food")} />
-
-      {/* Common Health Issues (Textarea) */}
-      <Textarea placeholder="Common Health Issues" {...register("common_health_issues")} />
-
-      {/* Multiple Image Upload */}
-      <label className="block">
-        Upload Images:
-        <Input type="file" accept="image/*" multiple onChange={handleFileChange} />
-      </label>
-      <div className="grid grid-cols-3 gap-2">
-        {images.map((image, index) => (
-          <img key={index} src={URL.createObjectURL(image)} alt="Pet Preview" className="h-20 w-20 object-cover rounded-md" />
-        ))}
+      <div>
+        <div className="bg-[#E4D3E7] p-4 rounded-md inline-block">
+          <label className="flex items-center space-x-3 text-[#8A5691]">
+            <input 
+              type="checkbox" 
+              {...register("vaccination_status")} 
+              className="rounded text-[#A864AF] focus:ring-[#A864AF] w-4 h-4"
+            />
+            <span className="font-medium">Pet is Vaccinated</span>
+          </label>
+        </div>
       </div>
 
-      <Button type="submit">Next</Button>
+      {/* Medical History (Textarea) - Separate row */}
+      <div>
+        <label className="block text-[#8A5691] mb-2 font-medium">Medical History</label>
+        <Textarea 
+          placeholder="Enter pet's medical history" 
+          {...register("medical_history")} 
+          className="border-[#D1B0D2] focus:ring-[#A864AF] w-full"
+          rows={3}
+        />
+      </div>
+
+      {/* Recommended Food (Textarea) - Separate row */}
+      <div>
+        <label className="block text-[#8A5691] mb-2 font-medium">Recommended Food</label>
+        <Textarea 
+          placeholder="Enter recommended food for the pet" 
+          {...register("recommended_food")} 
+          className="border-[#D1B0D2] focus:ring-[#A864AF] w-full"
+          rows={3}
+        />
+      </div>
+
+      {/* Common Health Issues (Textarea) - Separate row */}
+      <div>
+        <label className="block text-[#8A5691] mb-2 font-medium">Common Health Issues</label>
+        <Textarea 
+          placeholder="Enter any common health issues" 
+          {...register("common_health_issues")} 
+          className="border-[#D1B0D2] focus:ring-[#A864AF] w-full"
+          rows={3}
+        />
+      </div>
+
+      {/* Image upload - Separate row */}
+      <div>
+        <label className="block text-[#8A5691] mb-2 font-medium">Upload Pet Images</label>
+        <div className="border-2 border-dashed border-[#D1B0D2] p-4 rounded-md">
+          <Input 
+            type="file" 
+            accept="image/*" 
+            multiple 
+            onChange={handleFileChange}
+            className="border-none p-2" 
+          />
+        </div>
+      </div>
+
+      {/* Image preview - Separate row */}
+      {images.length > 0 && (
+        <div>
+          <label className="block text-[#8A5691] mb-2 font-medium">Image Preview ({images.length} images)</label>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 bg-[#E4D3E7]/10 p-4 rounded-md border border-[#D1B0D2]">
+            {images.map((image, index) => (
+              <div key={index} className="relative">
+                <img 
+                  src={URL.createObjectURL(image)} 
+                  alt="Pet Preview" 
+                  className="h-16 w-16 object-cover rounded-md border border-[#D1B0D2]" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="pt-3">
+        <Button 
+          type="submit"
+          className="px-8 py-2 bg-[#A864AF] hover:bg-[#8A5691] text-white font-medium rounded-md transition-colors"
+        >
+          Continue to Next Step
+        </Button>
+      </div>
     </form>
-  );
+  </div>
+);
 };
 
 export default PetForm;

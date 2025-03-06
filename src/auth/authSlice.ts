@@ -35,13 +35,13 @@ setCredentials: (state, action: PayloadAction<SignInResponse>) => {
 },
 
 // Handles logout: clears user and token
-logout: (state) => {
-  state.user = null;
-  state.token = null;
-  localStorage.removeItem('authToken'); // Remove token from localStorage
-},
+// logout: (state) => {
+//   state.user = null;
+//   state.token = null;
+//   localStorage.removeItem('authToken'); // Remove token from localStorage
+// },
 },
 });
 
-export const { setUserAfterSignup, setCredentials, logout } = authSlice.actions;
+export const { setUserAfterSignup, setCredentials } = authSlice.actions;
 export default authSlice.reducer;
