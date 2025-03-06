@@ -1,14 +1,8 @@
+import { BASE_URL_RAILS } from "@/config";
 import { useState, useEffect } from "react";
+import { User } from "../types/userType";
 
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  profile_image_url: string;
-}
-
-const backendURL = "http://localhost:3000"; // Change for production
+const backendURL = BASE_URL_RAILS; // Change for production
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);

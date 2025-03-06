@@ -6,21 +6,29 @@ import { Eye } from "lucide-react";
 import { Pet } from "../types/petType";
 import ViewPet from "./ViewPet";
 import AdoptPetContainer from "@/feature/AdoptPet/container/AdoptPetConatiner";
+import useAuth from "@/shared/hooks/useAuth";
 
 const PetCard = ({ pet }: { pet: Pet }) => {
   const [selectedPetId, setSelectedPetId] = useState<number | null>(null);
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  const { isLoggedIn } = useAuth();
   
   const handleAdoptClick = () => {
+
+    if (!isLoggedIn()) {
+      toast.error("Login Required", {
+        description: "Please log in to adopt a pet.",
+      });
+      return;
+    }
     if (pet.status === "Unavailable") {
       toast.error('Pet Adoption Unavailable', {
         description: `Sorry, ${pet.breed_name} is currently not available for adoption.`,
       });
-    } else {
+    } 
       setIsAdoptModalOpen(true);
-    }
   };
 
   return (
