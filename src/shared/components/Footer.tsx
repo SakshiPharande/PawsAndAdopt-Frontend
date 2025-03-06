@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter } from "lucide-react";
-import { HOME_PATH, SHOW_ADOPT_PET_REQUEST, SHOW_ALL_PETS, SHOW_DONATE_PET_REQUEST } from "@/routes/routes-constant";
+import { ABOUT_US, HOME_PATH, SHOW_ADOPT_PET_REQUEST, SHOW_ALL_PETS, SHOW_DONATE_PET_REQUEST } from "@/routes/routes-constant";
 
 const Footer = () => {
   return (
@@ -16,7 +16,7 @@ const Footer = () => {
             <Link to={SHOW_ALL_PETS} className="hover:text-[#D1B0D2]">Pets</Link>
             <Link to={SHOW_DONATE_PET_REQUEST} className="hover:text-[#D1B0D2]">Donate Pet</Link>
             <Link to={SHOW_ADOPT_PET_REQUEST} className="hover:text-[#D1B0D2]">Adopt Pet</Link>
-            <Link to="#" className="hover:text-[#D1B0D2]">Contact</Link>
+            <Link to={ABOUT_US} className="hover:text-[#D1B0D2]">About</Link>
           </nav>
         </div>
 

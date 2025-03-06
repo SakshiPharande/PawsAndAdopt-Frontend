@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router";
 import { LayoutType, RouteOptions, routes } from "./RoutesConfig";
-import AuthLayout from "@/Layout/AuthLayout";
 import HomeLayout from "@/Layout/HomeLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -11,9 +10,7 @@ const getBrowserRouter = (routes: RouteOptions[]) => {
     let element = route.element;
 
     // Apply AuthLayout only if includeLayout is true
-    if (route.layout ===  LayoutType.AUTH) {
-      element = <AuthLayout>{element}</AuthLayout>;
-    } else if (route.layout ===  LayoutType.HOME) {
+    if (route.layout ===  LayoutType.HOME) {
       element = <HomeLayout>{element}</HomeLayout>;
     }
     

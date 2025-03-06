@@ -7,3 +7,5 @@ export const SEND_DONATE_PET_REQUEST = "/donation";
 export const SHOW_DONATE_PET_REQUEST = "/show_donations";
 export const FILL_DONATION_FORM = "/donation_form/:petId"
 export const USER_PROFILE= "/profile"
+export const ABOUT_US= "/about"
+export const NOT_FOUND = "*"; 

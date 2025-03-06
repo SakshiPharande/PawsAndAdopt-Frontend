@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS, SHOW_ADOPT_PET_REQUEST, SEND_DONATE_PET_REQUEST, SHOW_DONATE_PET_REQUEST, FILL_DONATION_FORM, USER_PROFILE } from "./routes-constant";
+import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS, SHOW_ADOPT_PET_REQUEST, SEND_DONATE_PET_REQUEST, SHOW_DONATE_PET_REQUEST, FILL_DONATION_FORM, USER_PROFILE, NOT_FOUND, ABOUT_US } from "./routes-constant";
 import SignUpFormContainer from "@/auth/container/SignUpFormContainer";
 import SignInFormContainer from "@/auth/container/SignInFormContainer";
 import Home from "@/feature/landing/components/Home";
@@ -9,11 +9,12 @@ import DonationPage from "@/feature/DonatePet/components/DonationPage";
 import ShowDonateRequestContainer from "@/feature/DonatePet/container/ShowDonateRequestContainer";
 import DonationForm from "@/feature/DonatePet/components/DonationForm";
 import Profile from "@/feature/landing/components/Profile";
+import NotFound from "@/shared/components/NotFound";
+import About from "@/feature/landing/components/About";
 
 // Enum for layout types
 export enum LayoutType {
   HOME = "HomeLayout",
-  AUTH = "AuthLayout",
   NONE = "None", 
 }
 
@@ -39,14 +40,14 @@ export const routes: RouteOptions[] = [
     path: SIGNUP_PATH,
     element: <SignUpFormContainer/>,
     isProtected: false,
-    layout: LayoutType.AUTH
+    layout: LayoutType.NONE
   },
   {
     key: "sigin",
     path: SIGNIN_PATH,
     element: <SignInFormContainer/>,
     isProtected: false,
-    layout: LayoutType.AUTH
+    layout: LayoutType.NONE
   },
   {
     key: "all_pets",
@@ -89,5 +90,19 @@ export const routes: RouteOptions[] = [
     element: <Profile/>,
     isProtected: true,
     layout: LayoutType.HOME
+  },
+  {
+    key: "/about",
+    path: ABOUT_US,
+    element: <About/>,
+    isProtected: false,
+    layout: LayoutType.HOME,
+  },
+  {
+    key: "not_found",
+    path: NOT_FOUND,
+    element: <NotFound />,
+    isProtected: false,
+    layout: LayoutType.HOME,
   },
 ];
