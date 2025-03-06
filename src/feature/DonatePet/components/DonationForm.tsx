@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateDonationMutation } from "../api/donateApi";
@@ -7,97 +7,152 @@ import { Donation } from "../types/donatePetType";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "lucide-react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { donationSchema } from "../validations/donationform-validations";
+import { toast } from "sonner";
+import { SHOW_DONATE_PET_REQUEST } from "@/routes/routes-constant";
+
+// Type for form data
+interface DonationFormData {
+  email: string;
+  phone_no: string;
+  address: string;
+  expected_donate_date: string;
+}
 
 const DonationForm: React.FC = () => {
-  const { petId } = useParams<{ petId: string }>(); // Extract petId from URL
-  const { register, handleSubmit } = useForm<Donation>();
+  const { petId } = useParams<{ petId: string }>();
+  const navigate = useNavigate();
+  
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors, isSubmitting } 
+  } = useForm<DonationFormData>({
+    resolver: yupResolver(donationSchema),
+    defaultValues: {
+      expected_donate_date: new Date().toISOString().split('T')[0]
+    }
+  });
+  
   const [createDonation] = useCreateDonationMutation();
-
+  
   // Fetch user ID from localStorage
   const userId = localStorage.getItem("user_id");
-
-  const onSubmit = async (data: Donation) => {
+  
+  const onSubmit = async (formData: DonationFormData) => {
     try {
-      const donationData = {
-        pet_id: Number(petId), // Convert petId to number
+      // Convert form data to Donation type
+      const donationData: {
+        pet_id: number;
+        donate_pet: Donation;
+      } = {
+        pet_id: Number(petId),
         donate_pet: {
-          ...data,
-          user_id: userId ? parseInt(userId) :  null,
-          actual_donate_date: data.expected_donate_date,
+          pet_id: Number(petId),
+          email: formData.email,
+          phone_no: formData.phone_no,
+          address: formData.address,
+          expected_donate_date: formData.expected_donate_date,
+          actual_donate_date: formData.expected_donate_date,
+          user_id: userId ? parseInt(userId) : null,
         },
       };
-
+      
       await createDonation(donationData).unwrap();
-      alert("Donation submitted successfully!");
+      
+      // Show success toast
+      toast.success("Donation submitted successfully!", {
+        description: "Thank you for your contribution.",
+        duration: 3000,
+      });
+      
+      // Redirect to show_donation page
+      setTimeout(() => {
+        navigate(SHOW_DONATE_PET_REQUEST);
+      }, 1000);
     } catch (error) {
       console.error("Failed to submit donation", error);
+      
+      // Show error toast
+      toast.error("Failed to submit donation", {
+        description: "Please try again later.",
+        duration: 5000,
+      });
     }
   };
-
-
+  
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg">
-      <CardHeader className="text-[#8A5691] border-b">
-        <CardTitle className="text-xl text-[#8A5691]">Make a Donation</CardTitle>
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle className="text-center">Make a Donation</CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
-        <form id="donation-form" onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="font-medium">Email Address</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your.email@example.com"
-              className="w-full focus:ring-2 focus:ring-blue-500"
-              {...register("email", { required: true })}
+            <Label htmlFor="email">Email Address</Label>
+            <Input 
+              id="email" 
+              type="email" 
+              {...register("email")} 
+              className={errors.email ? "border-red-500" : ""}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
-         
+          
           <div className="space-y-2">
-            <Label htmlFor="phone" className="font-medium">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              placeholder="(123) 456-7890"
-              className="w-full focus:ring-2 focus:ring-blue-500"
-              {...register("phone_no", { required: true })}
+            <Label htmlFor="phone_no">Phone Number</Label>
+            <Input 
+              id="phone_no" 
+              type="tel" 
+              {...register("phone_no")} 
+              className={errors.phone_no ? "border-red-500" : ""}
             />
+            {errors.phone_no && (
+              <p className="text-red-500 text-sm">{errors.phone_no.message}</p>
+            )}
           </div>
-         
+          
           <div className="space-y-2">
-            <Label htmlFor="address" className="font-medium">Address</Label>
-            <Input
-              id="address"
-              type="text"
-              placeholder="Your full address"
-              className="w-full focus:ring-2 focus:ring-blue-500"
-              {...register("address", { required: true })}
+            <Label htmlFor="address">Address</Label>
+            <Input 
+              id="address" 
+              {...register("address")} 
+              className={errors.address ? "border-red-500" : ""}
             />
+            {errors.address && (
+              <p className="text-red-500 text-sm">{errors.address.message}</p>
+            )}
           </div>
-         
+          
           <div className="space-y-2">
-            <Label htmlFor="date" className="font-medium flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
+            <Label htmlFor="expected_donate_date" className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
               Expected Donation Date
             </Label>
-            <Input
-              id="date"
-              type="date"
-              className="w-full focus:ring-2 focus:ring-blue-500"
-              {...register("expected_donate_date", { required: true })}
+            <Input 
+              id="expected_donate_date" 
+              type="date" 
+              {...register("expected_donate_date")} 
+              className={errors.expected_donate_date ? "border-red-500" : ""}
             />
+            {errors.expected_donate_date && (
+              <p className="text-red-500 text-sm">{errors.expected_donate_date.message}</p>
+            )}
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-end bg-gray-50 border-t">
-        <Button
-          type="submit"
-          form="donation-form"
-          className=" bg-[#A864AF] hover:bg-[#8A5691] text-white font-medium rounded-md transition-colors px-8 py-2"
-        >
-          {"Submit Donation"}
-        </Button>
-      </CardFooter>
+        </CardContent>
+        <CardFooter>
+          <Button 
+            type="submit" 
+            className="w-full"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Donation"}
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 };
