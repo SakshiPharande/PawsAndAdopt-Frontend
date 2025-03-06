@@ -10,6 +10,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useCarousel } from "../hooks/useCarousel";
+import { Link } from "react-router-dom";
+import { SHOW_ALL_PETS } from "@/routes/routes-constant";
 
 interface Slide {
   image: string;
@@ -80,9 +82,11 @@ const Banner: React.FC = () => {
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to={SHOW_ALL_PETS}>
                     <Button size="lg" className="bg-[#A864AF] hover:bg-[#8A5691] text-white border-none px-6">
                       Adopt Now
                     </Button>
+                  </Link>
                   </div>
                 </div>
               </AspectRatio>
