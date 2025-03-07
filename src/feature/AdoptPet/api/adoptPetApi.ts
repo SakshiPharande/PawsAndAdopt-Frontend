@@ -1,9 +1,10 @@
+import { BASE_URL_RAILS_API } from "@/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const adoptionApi = createApi({
   reducerPath: "adoptionApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/v1",
+    baseUrl: BASE_URL_RAILS_API,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token"); // Get token from localStorage
       if (token) {

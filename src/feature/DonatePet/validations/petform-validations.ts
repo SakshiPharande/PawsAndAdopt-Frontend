@@ -1,6 +1,6 @@
 // petFormValidation.ts
 import * as yup from 'yup';
-import { Pet } from '../types/donatePetType';
+import { Pet } from '../types/donate-pet-type';
 
 // Define maximum file size (5MB)
 const MAX_FILE_SIZE = 5 * 1024 * 1024;

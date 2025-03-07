@@ -1,14 +1,13 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { AdoptionRequest } from "../types/showAdoptRequestType";
+import { AdoptionRequest } from "../types/show-adopt-request-type";
 import { useState } from "react";
+import { BASE_URL_RAILS } from "@/config";
 
 interface AdoptionDialogProps {
   isOpen: boolean;
   onClose: () => void;
   request: AdoptionRequest | null;
 }
-
-const BASE_URL = "http://localhost:3000";
 
 const ViewAdoptPetDialog = ({ isOpen, onClose, request }: AdoptionDialogProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -44,7 +43,7 @@ const ViewAdoptPetDialog = ({ isOpen, onClose, request }: AdoptionDialogProps) =
               <div className="relative">
                 <div className="w-full h-48 md:h-52 rounded-lg overflow-hidden relative">
                   <img
-                    src={`${BASE_URL}${request.pet.pet_images[currentImageIndex]}`}
+                    src={`${BASE_URL_RAILS}${request.pet.pet_images[currentImageIndex]}`}
                     alt={`${request.pet.breed_name} - Image ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                   />

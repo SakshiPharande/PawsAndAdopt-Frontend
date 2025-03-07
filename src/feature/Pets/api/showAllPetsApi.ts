@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PetsResponse } from '../types/petType';
+import { PetsResponse } from '../types/pet-type';
+import { BASE_URL_RAILS_API } from '@/config';
 
 export const showAllPetsApi = createApi({
   reducerPath: 'showAllPetsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_RAILS_API }),
   endpoints: (builder) => ({
     getAllPets: builder.query<PetsResponse, void>({
       query: () => '/pets',

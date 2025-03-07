@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useGetAllPetsQuery } from "../api/showAllPetsApi";
-import PetCard from "../components/PetCard";
-import PetsFilters from "./PetsFilters";
-import { Pet } from "../types/petType";
+import PetsFilters from "../components/PetsFilters";
+import { Pet } from "../types/pet-type";
 import { 
   ChevronFirst, 
   ChevronLast, 
@@ -10,6 +9,7 @@ import {
   ChevronRight 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PetCardContainer from "./PetCardContainer";
 
 const ShowAllPets = () => {
   // Query management
@@ -135,7 +135,7 @@ const ShowAllPets = () => {
         {/* Pet Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
           {currentPets.length > 0 ? (
-            currentPets.map((pet: Pet) => <PetCard key={pet.id} pet={pet} />)
+            currentPets.map((pet: Pet) => <PetCardContainer key={pet.id} pet={pet} />)
           ) : (
             <div className="col-span-full flex justify-center items-center">
               <p className="text-xl text-[#8A5691] bg-[#E4D3E7] p-4 rounded-lg">

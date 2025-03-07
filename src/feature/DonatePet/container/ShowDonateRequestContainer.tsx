@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DonationRequest } from "../types/showDonationRequestType";
+import { DonationRequest } from "../types/show-donation-request-type";
 import { useFetchUserDonationsQuery } from "../api/showDonateRequestApi";
 import ShowDonateRequest from "../components/ShowDonateRequest";
 import ViewDonatePetDialog from "../components/ViewDonatePetDialog";

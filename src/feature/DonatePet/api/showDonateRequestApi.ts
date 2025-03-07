@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { DonationResponse } from "../types/showDonationRequestType";
+import { DonationResponse } from "../types/show-donation-request-type";
 
 
 export const showDonateRequestApi = createApi({

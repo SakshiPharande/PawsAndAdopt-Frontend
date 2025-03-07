@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Eye, PawPrint} from "lucide-react";
-import { DonationRequest } from "../types/showDonationRequestType";
+import { DonationRequest } from "../types/show-donation-request-type";
 import { Link } from "react-router-dom";
 
 interface ShowDonateRequestProps {

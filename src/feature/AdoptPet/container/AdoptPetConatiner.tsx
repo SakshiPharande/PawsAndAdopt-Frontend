@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAdoptPetMutation } from "../api/adoptPetApi";
-import { AdoptPetFormData, AdoptPetProps } from "../types/adoptPetType";
+import { AdoptPetFormData, AdoptPetProps } from "../types/adoptpet-type";
 import AdoptPetForm from "../components/AdoptPetForm";
 
 

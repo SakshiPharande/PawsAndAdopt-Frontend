@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AdoptionResponse } from "../types/showAdoptRequestType";
+import { AdoptionResponse } from "../types/show-adopt-request-type";
+import { BASE_URL_RAILS_API_ADOPT_PETS } from "@/config";
 
 
 export const showAdoptRequestApi = createApi({
   reducerPath: "viewAdoptRequestApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/v1/adopt_pets",
+    baseUrl: BASE_URL_RAILS_API_ADOPT_PETS,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token"); // Get token from localStorage
+      const token = localStorage.getItem("token"); 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

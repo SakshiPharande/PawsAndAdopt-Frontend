@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { HOME_PATH, SIGNIN_PATH, SIGNUP_PATH, SHOW_ALL_PETS, SHOW_ADOPT_PET_REQUEST, SEND_DONATE_PET_REQUEST, SHOW_DONATE_PET_REQUEST, FILL_DONATION_FORM, USER_PROFILE, NOT_FOUND, ABOUT_US } from "./routes-constant";
 import SignUpFormContainer from "@/auth/container/SignUpFormContainer";
 import SignInFormContainer from "@/auth/container/SignInFormContainer";
@@ -11,21 +10,8 @@ import DonationForm from "@/feature/DonatePet/components/DonationForm";
 import Profile from "@/feature/landing/components/Profile";
 import NotFound from "@/shared/components/NotFound";
 import About from "@/feature/landing/components/About";
+import { LayoutType, RouteOptions } from "./routeType";
 
-// Enum for layout types
-export enum LayoutType {
-  HOME = "HomeLayout",
-  NONE = "None", 
-}
-
-export interface RouteOptions {
-  key: string;
-  path: string;
-  element: ReactNode;
-  isProtected: boolean;
-  // includeLayout: boolean;
-  layout: LayoutType;
-}
 
 export const routes: RouteOptions[] = [
   {

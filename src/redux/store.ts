@@ -1,5 +1,6 @@
 import { signInApi } from '@/auth/api/signInApi';
 import { signUpApi } from '@/auth/api/signUpApi';
+import authSlice from '@/auth/authSlice';
 import { adoptionApi } from '@/feature/AdoptPet/api/adoptPetApi';
 import { showAdoptRequestApi } from '@/feature/AdoptPet/api/showAdoptRequest';
 import { categoryApi } from '@/feature/DonatePet/api/categoryApi';
@@ -10,6 +11,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
+    auth: authSlice, // Add authSlice reducer here
     [signUpApi.reducerPath]: signUpApi.reducer,
     [signInApi.reducerPath]: signInApi.reducer,
     [showAllPetsApi.reducerPath]: showAllPetsApi.reducer,

@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { DonationRequest } from "../types/showDonationRequestType";
+import { DonationRequest } from "../types/show-donation-request-type";
 import { useState } from "react";
 
 interface DonationDialogProps {

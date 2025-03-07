@@ -10,11 +10,13 @@ interface AuthState {
     email: string;
   } | null;
   token: string | null; // Token is only stored after login
+  isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   token: null,
+  isAuthenticated: false,  // Auth status
 };
 
 const authSlice = createSlice({
@@ -31,15 +33,15 @@ const authSlice = createSlice({
 setCredentials: (state, action: PayloadAction<SignInResponse>) => {
   state.user = action.payload.user;
   state.token = action.payload.token;
-  localStorage.setItem('authToken', action.payload.token); // Store token in localStorage
+  state.isAuthenticated = true;
 },
 
 // Handles logout: clears user and token
-// logout: (state) => {
-//   state.user = null;
-//   state.token = null;
-//   localStorage.removeItem('authToken'); // Remove token from localStorage
-// },
+logout: (state) => {
+  state.user = null;
+  state.token = null;
+  state.isAuthenticated = false; 
+},
 },
 });
 

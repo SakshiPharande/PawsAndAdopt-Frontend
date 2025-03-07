@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useGetBreedsByCategoryQuery, useGetCategoriesQuery } from "../api/categoryApi";
-import { GetBreedsResponse, GetCategoriesResponse, Pet } from "../types/donatePetType";
+import { GetBreedsResponse, GetCategoriesResponse, Pet } from "../types/donate-pet-type";
 import { useCreatePetMutation } from "../api/donateApi";
 import { useNavigate } from "react-router-dom";
 

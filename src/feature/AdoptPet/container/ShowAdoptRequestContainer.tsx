@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFetchUserAdoptionsQuery } from "../api/showAdoptRequest";
-import { AdoptionRequest } from "../types/showAdoptRequestType";
+import { AdoptionRequest } from "../types/show-adopt-request-type";
 import ShowAdoptRequest from "../components/ShowAdoptRequest";
 import ViewAdoptPetDialog from "../components/ViewAdoptPetDialog";
 
@@ -14,11 +14,6 @@ const ShowAdoptRequestContainer = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Deleting adoption request with ID: ${id}`);
-    // Add delete logic here (API call)
-  };
-
   if (isLoading) return <p>Loading...</p>;
   if (error) {
     const errorMessage = "status" in error ? (error.data as any)?.message : "Something went wrong";
@@ -30,7 +25,7 @@ const ShowAdoptRequestContainer = () => {
 
   return (
     <>
-      <ShowAdoptRequest data={adoptionRequests} onView={handleView} onDelete={handleDelete} />
+      <ShowAdoptRequest data={adoptionRequests} onView={handleView}/>
       {selectedRequest && (
         <ViewAdoptPetDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} request={selectedRequest} />
       )}

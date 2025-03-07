@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Eye, PawPrint } from "lucide-react";
-import { AdoptionRequest } from "../types/showAdoptRequestType";
+import { AdoptionRequest } from "../types/show-adopt-request-type";
 
 interface ShowAdoptRequestProps {
   data: AdoptionRequest[];

@@ -3,8 +3,9 @@ import { toast } from 'sonner';
 import * as Yup from 'yup';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AdoptPetFormData } from "../types/adoptPetType";
-import { AdoptionFormErrors, AdoptionValidationSchema } from "../validations/adoptpet-validations";
+import { AdoptPetFormData } from "../types/adoptpet-type";
+import {AdoptionValidationSchema } from "../validations/adoptpet-validations";
+import { AdoptionFormErrors } from "../types/adoptform-validation-type";
 
 
 interface AdoptPetFormProps {

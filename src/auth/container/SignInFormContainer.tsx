@@ -26,10 +26,15 @@ const SignInFormContainer: React.FC = () => {
   const onSubmit: SubmitHandler<SignInRequest> = async (data) => {
     try {
       const userData = await loginUser(data).unwrap();
-      dispatch(setCredentials(userData));
-      localStorage.setItem("token", userData.token);
-      localStorage.setItem("user", JSON.stringify(userData.user));
-      localStorage.setItem("profile_image_url", userData.user.profile_image_url);
+       // Dispatch to Redux
+       dispatch(setCredentials(userData));
+
+       // Store in localStorage
+       localStorage.setItem("token", userData.token);
+       localStorage.setItem("user", JSON.stringify(userData.user));
+       if (userData.user.profile_image) {
+         localStorage.setItem("profile_image_url", userData.user.profile_image);
+       }
 
       //  Show success toast using Sonner
       toast.success(`Welcome back, ${userData.user.first_name}!`);

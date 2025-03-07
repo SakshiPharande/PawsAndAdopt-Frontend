@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router";
-import { LayoutType, RouteOptions, routes } from "./RoutesConfig";
 import HomeLayout from "@/Layout/HomeLayout";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { LayoutType, RouteOptions } from "./routeType";
+import { routes } from "./RoutesConfig";
 
 
 const getBrowserRouter = (routes: RouteOptions[]) => {
