@@ -14,10 +14,6 @@ const ShowDonateRequestContainer = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Deleting Donation request with ID: ${id}`);
-    // Add delete logic here (API call)
-  };
 
   if (isLoading) return <p>Loading...</p>;
   if (error) {
@@ -30,7 +26,7 @@ const ShowDonateRequestContainer = () => {
 
   return (
     <>
-      <ShowDonateRequest data={donationRequests} onView={handleView} onDelete={handleDelete} />
+      <ShowDonateRequest data={donationRequests} onView={handleView} />
       {selectedRequest && (
         <ViewDonatePetDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} request={selectedRequest} />
       )}
