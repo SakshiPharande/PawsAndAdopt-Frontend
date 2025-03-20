@@ -1,14 +1,14 @@
-import Banner from "./Banner"
+import Banner from "./QuotesBanner"
 import Features from "./Features"
 import PetCategories from "./PetCategories"
-import QuotesBanner from "./QuotesBanner"
+import QuotesBanner from "./Banner"
 
 const Home = () => {
   return (
     <>
-      <QuotesBanner/>
-      <PetCategories/>
       <Banner/>
+      <PetCategories/>
+      <QuotesBanner/>
       <Features/>
     </>
 )}
