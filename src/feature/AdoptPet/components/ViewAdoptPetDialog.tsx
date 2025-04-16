@@ -107,8 +107,8 @@ const ViewAdoptPetDialog = ({ isOpen, onClose, request }: AdoptionDialogProps) =
                 <div className="flex">
                   <p className="font-semibold w-24">Status:</p>
                   <p className={
-                    request.status === "Approved" ? "text-green-600" : 
-                    request.status === "Pending" ? "text-yellow-600" : "text-red-600"
+                    request.status === "accepted" ? "text-green-600" : 
+                    request.status === "pending" ? "text-yellow-600" : "text-red-600"
                   }>
                     {request.status}
                   </p>
